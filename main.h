@@ -1,66 +1,49 @@
-#ifndef MAIN_H_
-#define MAIN_H_
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <stdio.h>
-#include <stdarg.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <limits.h>
-/**
- * struct flag_char - holds conversion letters.
- * @space: space flag
- * @plus: plus flag
- * @hash: hash flag
- * @lng: long int flag
- * @shrt: short num flag
- * @zero: zero flag
- * @dash: width flag
- */
-struct flag_char
-{
-	int space;
-	int plus;
-	int hash;
-	int lng;
-	int shrt;
-	int zero;
-	int dash;
-};
-typedef struct flag_char flag_t;
-/**
- * struct convert - holds conversion letters.
- * @str: The operator
- * @fun: The function associated
- */
-struct convert
-{
-	char *str;
-	int (*fun)(va_list, flag_t *f, int width);
-};
-typedef struct convert conver_t;
+#include <unistd.h>
 
-int print_numm(unsigned long int nm);
-int print_gap(int num, int wd, flag_t *f);
 
+
+/**
+ * struct format - match the conversion specifiers for printf
+ * @id: type char pointer of the specifier i.e (l, h) for (d, i, u, o, x, X)
+ * @f: type pointer to function for the conversion specifier
+ *
+ */
+
+typedef struct format
+{
+	char *id;
+	int (*f)();
+} convert_match;
+
+int printf_pointer(va_list val);
+int printf_hex_aux(unsigned long int num);
+int printf_HEX_aux(unsigned int num);
+int printf_exclusive_string(va_list val);
+int printf_HEX(va_list val);
+int printf_hex(va_list val);
+int printf_oct(va_list val);
+int printf_unsigned(va_list args);
+int printf_bin(va_list val);
+int printf_srev(va_list args);
+int printf_rot13(va_list args);
+int printf_int(va_list args);
+int printf_dec(va_list args);
+int _strlen(char *s);
+int *_strcpy(char *dest, char *src);
+int _strlenc(const char *s);
+int rev_string(char *s);
+int _strlenc(const char *s);
+int printf_37(void);
+int printf_char(va_list val);
+int printf_string(va_list val);
 int _putchar(char c);
-int p_binary(va_list bnp, flag_t *f, int width);
-int p_char(va_list pcp, flag_t *f, int width);
-int p_numbers(va_list vap, flag_t *f, int width);
-int p_string(va_list psp, flag_t *f, int width);
-int p_percent(va_list, flag_t *f, int width);
-int p_octal(va_list ocp, flag_t *f, int width);
-int p_decimal(va_list dpp, flag_t *f, int width);
-int p_hexd(va_list hpp, flag_t *f, int width);
-int p_heXd(va_list php, flag_t *f, int width);
-int p_nonp(va_list pnp, flag_t *f, int width);
-int p_reversed(va_list prp, flag_t *f, int width);
-int rot13(va_list rop, flag_t *f, int width);
-int get_flag(char z, flag_t *f);
-int _puts(char *str);
-int p_intiger(va_list iip, flag_t *f, int width);
-int p_pointer(va_list ptp, flag_t *f, int width);
-char *rev_string(char *s);
-char *_memcpy(char *dest, char *src, unsigned int n);
-int _switch(const char *format, conver_t f_list[], va_list ap, flag_t flags);
 int _printf(const char *format, ...);
-int _putchar(char c);
+
 #endif
